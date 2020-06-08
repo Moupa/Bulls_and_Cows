@@ -5,17 +5,18 @@ import datetime
 
 def main():
     greeting()
-    attemps = 0
+    attempts = 0
     random_num = random_number()
+    print(random_num)
     start_time = time.time()
     while True:
         player_num = player_number()
-        attemps += 1
+        attempts += 1
         bulls, cows = bulls_cows_counts(random_num, player_num)
         if bulls == 4:
             total_time = time.time() - start_time
-            print(f"Congratulations!!You won in {attemps} attemps. That's {evaluation(attemps)} result. ")
-            add_result('statistics.txt', attemps, total_time)
+            print(f"Congratulations!!You won in {attempts} attemps. That's {evaluation(attempts)} result. ")
+            add_result('statistics.txt', attempts, total_time)
             show_statistics('statistics.txt')
             break
         else:
@@ -37,11 +38,8 @@ def greeting():
 
 
 def random_number():
-    number = []
-    while len(number) < 4:
-        num = random.randint(0, 9)
-        if num not in number:
-            number.append(num)
+    num = list(range(0,10))
+    number = random.sample(num, k=4)
     return number
 
 
@@ -72,11 +70,11 @@ def bulls_cows_counts(random_n, player_n):
     return bulls, cows
 
 
-def add_result(file, atmps, total_time):
+def add_result(file, attempts, total_time):
     g_date, g_time = day_time_form()
     with open(file, "a", newline="\n") as new_result:
         new_result.write("|{0:^12}|{1:^10}|{2:^11}|{3:^15}|{4:^14,.3f}|\n"
-                         .format(g_date, g_time, atmps, evaluation(atmps), total_time))
+                         .format(g_date, g_time, attempts, evaluation(attempts), total_time))
 
 
 def show_statistics(file):
@@ -94,19 +92,19 @@ def show_statistics(file):
             continue
 
 
-def evaluation(count_attemps):
-    if count_attemps < 3:
+def evaluation(count_attempts):
+    if count_attempts < 3:
         return 'amazing'
-    elif count_attemps < 6:
+    elif count_attempts < 6:
         return 'good'
     return 'not very good'
 
 
 def day_time_form():
     day_time = datetime.datetime.now()
-    d_date = str(day_time.date())
-    d_time = (day_time.time()).strftime('%H:%M:%S')
-    return d_date, d_time
+    game_date = str(day_time.date())
+    game_time = (day_time.time()).strftime('%H:%M:%S')
+    return game_date, game_time
 
 
 main()

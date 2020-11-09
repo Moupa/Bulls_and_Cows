@@ -7,7 +7,6 @@ def main():
     greeting()
     attempts = 0
     random_num = random_number()
-    print(random_num)
     start_time = time.time()
     while True:
         player_num = player_number()

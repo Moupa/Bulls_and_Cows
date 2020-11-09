@@ -39,7 +39,7 @@ def greeting():
 
 def random_number():
     num = list(range(0,10))
-    number = random.sample(num, k=5)
+    number = random.sample(num, k=4)
     return number
 
 
